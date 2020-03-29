@@ -7,6 +7,7 @@ public class cubeSpawner : MonoBehaviour
     [SerializeField] GameObject CubePreb;
 
     float accumTime = 0f;
+    public float spawnWidth = 0.5f;
     List<GameObject> LiveCubes = new List<GameObject>();
 
     // Start is called before the first frame update
@@ -35,11 +36,11 @@ public class cubeSpawner : MonoBehaviour
 
     void SpawnCube() {
         GameObject newCube = Instantiate(CubePreb, this.transform, false);
-        // set cube and position if supplied
-        // newCube.transform.localPosition = 
-        // newCub.transform.localRotation = 
+        newCube.GetComponent<cubeInteraction>().isLeftCube = Random.value > 0.5;
 
-        // 
+        Transform cubPos = newCube.GetComponent<Transform>();
+        cubPos.localPosition += new Vector3((float)(Random.value * spawnWidth - (spawnWidth / 2)), 0f, 0f);
+        
         LiveCubes.Add(newCube); 
     }
 

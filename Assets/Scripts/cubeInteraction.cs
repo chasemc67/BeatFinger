@@ -13,97 +13,48 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Collider))]
 public class cubeInteraction : MonoBehaviour
 {
-    /// <summary>
-    /// Renderer of this cube
-    /// </summary>
     private Renderer m_renderer;
+    
+    private OVRHand leftHand;
+    private OVRHand rightHand;
+
+    public Material leftHandMat;
+    public Material rightHandMat;
+    // check if its a left hand (red) or a right hand (blue) cube
+    public Boolean isLeftCube = false;
  
-    /// <summary>
-    /// Reference to the managers of the hands.
-    /// First item is left hand, second item is right hand
-    /// </summary>
-    private OVRHand[] m_hands;
- 
-    /// <summary>
-    /// True if an index tip is inside the cube, false otherwise.
-    /// First item is left hand, second item is right hand
-    /// </summary>
-    private bool[] m_isIndexStaying;
- 
-    /// <summary>
-    /// Start
-    /// </summary>
     void Start()
     {
         m_renderer = GetComponent<Renderer>();
-        m_hands = new OVRHand[]
-        {
-            GameObject.Find("OVRCameraRig/TrackingSpace/LeftHandAnchor/OVRHandPrefab").GetComponent<OVRHand>(),
-            GameObject.Find("OVRCameraRig/TrackingSpace/RightHandAnchor/OVRHandPrefab").GetComponent<OVRHand>()
-        };
-        m_isIndexStaying = new bool[2] { false, false };
- 
-        //we don't want the cube to move over collision, so let's just use a trigger
-        GetComponent<Collider>().isTrigger = true;
+        leftHand = GameObject.Find("OVRCameraRig/TrackingSpace/LeftHandAnchor/OVRHandPrefab").GetComponent<OVRHand>();
+        rightHand = GameObject.Find("OVRCameraRig/TrackingSpace/RightHandAnchor/OVRHandPrefab").GetComponent<OVRHand>();
+
+        if (isLeftCube) {
+            m_renderer.material = leftHandMat;
+        } else {
+            m_renderer.material = rightHandMat;
+        }
     }
+
  
-    /// <summary>
-    /// Update
-    /// </summary>
-    void Update()
-    {
-        //check for middle finger pinch on the left hand, and make che cube red in this case
-        if (m_hands[0].GetFingerIsPinching(OVRHand.HandFinger.Middle))
-            m_renderer.material.color = Color.red;
-        //if no pinch, and the cube was red, make it white again
-        else if (m_renderer.material.color == Color.red)
-            m_renderer.material.color = Color.white;
-    }
- 
-    /// <summary>
-    /// Trigger enter.
-    /// Notice that this gameobject must have a trigger collider
-    /// </summary>
-    /// <param name="collider">Collider of interest</param>
+    // Trigger enter.
+    // Notice that this gameobject must have a trigger collider
     private void OnTriggerEnter(Collider collider)
     {
         //get hand associated with trigger
         int handIdx = GetIndexFingerHandId(collider);
+        int targetIndex = isLeftCube ? 0 : 1;
  
         //if there is an associated hand, it means that an index of one of two hands is entering the cube
         //change the color of the cube accordingly (blue for left hand, green for right one)
-        if (handIdx != -1)
+        if (handIdx == targetIndex)
         {
-            m_renderer.material.color = handIdx == 0 ? m_renderer.material.color = Color.blue : m_renderer.material.color = Color.green;
-            m_isIndexStaying[handIdx] = true;
+            m_renderer.material.color = Color.white;
         }
     }
  
-    /// <summary>
-    /// Trigger Exit.
-    /// Notice that this gameobject must have a trigger collider
-    /// </summary>
-    /// <param name="collider">Collider of interest</param>
-    private void OnTriggerExit(Collider collider)
-    {
-        //get hand associated with trigger
-        int handIdx = GetIndexFingerHandId(collider);
- 
-        //if there is an associated hand, it means that an index of one of two hands is levaing the cube,
-        //so set the color of the cube back to white, or to the one of the other hand, if it is in
-        if (handIdx != -1)
-        {
-            m_isIndexStaying[handIdx] = false;
-            m_renderer.material.color = m_isIndexStaying[0] ? m_renderer.material.color = Color.blue :
-                                        (m_isIndexStaying[1] ? m_renderer.material.color = Color.green : Color.white);
-        }
-    }
- 
-    /// <summary>
-    /// Gets the hand id associated with the index finger of the collider passed as parameter, if any
-    /// </summary>
-    /// <param name="collider">Collider of interest</param>
-    /// <returns>0 if the collider represents the finger tip of left hand, 1 if it is the one of right hand, -1 if it is not an index fingertip</returns>
+    // Gets the hand id associated with the index finger of the collider passed as parameter, if any
+    // returns 0 if the collider represents the finger tip of left hand, 1 if it is the one of right hand, -1 if it is not an index fingertip
     private int GetIndexFingerHandId(Collider collider)
     {
         //Checking Oculus code, it is possible to see that physics capsules gameobjects always end with _CapsuleCollider
@@ -114,15 +65,15 @@ public class cubeInteraction : MonoBehaviour
             OVRPlugin.BoneId boneId = (OVRPlugin.BoneId)Enum.Parse(typeof(OVRPlugin.BoneId), boneName);
  
             //if it is the tip of the Index
-            if (boneId == OVRPlugin.BoneId.Hand_Index3)
+            if (boneId == OVRPlugin.BoneId.Hand_Index3 || boneId == OVRPlugin.BoneId.Hand_Index2 || boneId == OVRPlugin.BoneId.Hand_Index1)
                 //check if it is left or right hand, and change color accordingly.
                 //Notice that absurdly, we don't have a way to detect the type of the hand
                 //so we have to use the hierarchy to detect current hand
-                if (collider.transform.IsChildOf(m_hands[0].transform))
+                if (collider.transform.IsChildOf(leftHand.transform))
                 {
                     return 0;
                 }
-                else if (collider.transform.IsChildOf(m_hands[1].transform))
+                else if (collider.transform.IsChildOf(rightHand.transform))
                 {
                     return 1;
                 }

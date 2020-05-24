@@ -1005,6 +1005,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1082988720}
   - component: {fileID: 1082988721}
+  - component: {fileID: 1082988722}
   m_Layer: 0
   m_Name: GameSpace
   m_TagString: Untagged
@@ -1040,6 +1041,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6fe2842be387a34e8bc55719cbc339b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameSpace: {fileID: 1082988720}
+--- !u!114 &1082988722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1082988719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1133fa2b6d35c4f209682c8d59410917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   GameSpace: {fileID: 1082988720}

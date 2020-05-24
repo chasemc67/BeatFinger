@@ -50,6 +50,7 @@ public class cubeInteraction : MonoBehaviour
         if (handIdx == targetIndex)
         {
             m_renderer.material.color = Color.white;
+            // Destroy(gameObject);
         }
     }
  

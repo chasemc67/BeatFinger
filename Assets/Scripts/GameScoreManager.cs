@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameScoreManager : MonoBehaviour
 { 
@@ -10,6 +11,7 @@ public class GameScoreManager : MonoBehaviour
     public Action incrementScore;
     public Action incrementMiss;
 
+    public TextMeshPro Scoreboard;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +22,7 @@ public class GameScoreManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Scoreboard.SetText(string.Format("Score: {0}", Score));
     }
 
 

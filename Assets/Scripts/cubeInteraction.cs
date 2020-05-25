@@ -58,9 +58,10 @@ public class cubeInteraction : MonoBehaviour
         //change the color of the cube accordingly (blue for left hand, green for right one)
         if (handIdx == targetIndex)
         {
-            // m_renderer.material.color = Color.white;
-            cubeHit();
+            // disable collider so it wont be called by multiple finger bones
+            GetComponent<Collider>().enabled = false;
             Destroy(gameObject);
+            cubeHit();
         }
     }
  

@@ -1,5 +1,7 @@
-# Teeny tiny BeatSaber you play with your fingers
+# Teeny tiny tabletop BeatSaber
 
-## Supports:
-Ocoulus Quest with hand tracking
-Project North Star with leap motion and Occipital Structure Core 6DoF sensor
+Currently works with Oculus Quest
+
+Looking forward to add Hololens support once microsoft will finally sell me a Hololens 2
+
+[Video Demo](https://github.com/chasemc67/BeatFinger/blob/master/Demo%20Video.mp4)

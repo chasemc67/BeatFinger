@@ -6,9 +6,9 @@ public class cubeSpawner : MonoBehaviour
 {
     [SerializeField] GameObject CubePreb;
 
-    float accumTime = 0f;
+    private float timer;
     public float spawnWidth = 0.5f;
-    public float bpm = 60f / 106f;
+    public float bpm = 60 / 106;
     List<GameObject> LiveCubes = new List<GameObject>();
 
     public GameScoreManager gameScoreManager;
@@ -27,13 +27,12 @@ public class cubeSpawner : MonoBehaviour
 
     // this is a great place for using a delegate, break up this code and make it more extensible
     void spawnWithTimeIntervalIfNecessary() {
-        float spawnRate = bpm;  
-
-        accumTime += Time.deltaTime;
-        if (accumTime >= spawnRate) {
-            accumTime -= spawnRate;
+        if (timer >= bpm) {
+            timer -= bpm;
             SpawnCube();
         }
+
+        timer += Time.deltaTime;
     }
 
     void SpawnCube() {

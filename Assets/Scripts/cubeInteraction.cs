@@ -22,6 +22,8 @@ public class cubeInteraction : MonoBehaviour
     public Material rightHandMat;
     // check if its a left hand (red) or a right hand (blue) cube
     public Boolean isLeftCube = false;
+    public float cubeSpeed = 1f;
+    public float destroyAt = 5f;
  
     void Start()
     {
@@ -34,6 +36,10 @@ public class cubeInteraction : MonoBehaviour
         } else {
             m_renderer.material = rightHandMat;
         }
+    }
+
+    void Update() {
+        updateCubesWithTimeInterval();
     }
 
  
@@ -49,8 +55,8 @@ public class cubeInteraction : MonoBehaviour
         //change the color of the cube accordingly (blue for left hand, green for right one)
         if (handIdx == targetIndex)
         {
-            m_renderer.material.color = Color.white;
-            // Destroy(gameObject);
+            // m_renderer.material.color = Color.white;
+            Destroy(gameObject);
         }
     }
  
@@ -82,5 +88,12 @@ public class cubeInteraction : MonoBehaviour
  
         return -1;
     }
- 
+
+    void updateCubesWithTimeInterval() {
+        Vector3 updateVector = new Vector3(0f, 0f, -Time.deltaTime * cubeSpeed);
+        transform.position += updateVector;
+        if (Math.Abs(transform.localPosition.z) > destroyAt) {
+            Destroy(gameObject);
+        }
+    }
 }

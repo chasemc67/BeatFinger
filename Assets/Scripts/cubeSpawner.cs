@@ -20,7 +20,6 @@ public class cubeSpawner : MonoBehaviour
     void Update()
     {
         spawnWithTimeIntervalIfNecessary();
-        updateCubesWithTimeInterval();
     }
 
     // this is a great place for using a delegate, break up this code and make it more extensible
@@ -42,14 +41,5 @@ public class cubeSpawner : MonoBehaviour
         cubPos.localPosition += new Vector3((float)(Random.value * spawnWidth - (spawnWidth / 2)), 0f, 0f);
         
         LiveCubes.Add(newCube); 
-    }
-
-    void updateCubesWithTimeInterval() {
-        const float cubeSpeed = 1f; // units per second
-        Vector3 updateVector = new Vector3(0f, 0f, -Time.deltaTime * cubeSpeed);
-
-        foreach (GameObject cube in LiveCubes) {
-            cube.transform.position += updateVector;
-        }
     }
 }

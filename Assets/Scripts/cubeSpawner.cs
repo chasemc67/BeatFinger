@@ -8,6 +8,7 @@ public class cubeSpawner : MonoBehaviour
 
     float accumTime = 0f;
     public float spawnWidth = 0.5f;
+    public float bpm = 60f / 106f;
     List<GameObject> LiveCubes = new List<GameObject>();
 
     public GameScoreManager gameScoreManager;
@@ -26,7 +27,7 @@ public class cubeSpawner : MonoBehaviour
 
     // this is a great place for using a delegate, break up this code and make it more extensible
     void spawnWithTimeIntervalIfNecessary() {
-        const float spawnRate = 1f;  
+        float spawnRate = bpm;  
 
         accumTime += Time.deltaTime;
         if (accumTime >= spawnRate) {

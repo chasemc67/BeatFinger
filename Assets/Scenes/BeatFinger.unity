@@ -454,7 +454,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 6.708e-42, y: 1.02e-43, z: 2.4e-44, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -796,6 +796,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 804655901}
     m_Modifications:
+    - target: {fileID: 1139690814140267845, guid: 6319581cbfbfc4db39651e88180d795d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1139690814673987336, guid: 6319581cbfbfc4db39651e88180d795d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -880,6 +885,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GameSpace
+      objectReference: {fileID: 0}
+    - target: {fileID: 1161362800906134213, guid: 6319581cbfbfc4db39651e88180d795d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3613203414143136414, guid: 6319581cbfbfc4db39651e88180d795d,
         type: 3}

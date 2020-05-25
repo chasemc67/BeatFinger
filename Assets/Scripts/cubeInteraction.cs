@@ -24,6 +24,9 @@ public class cubeInteraction : MonoBehaviour
     public Boolean isLeftCube = false;
     public float cubeSpeed = 1f;
     public float destroyAt = 5f;
+
+    public Action cubeHit;
+    public Action cubeMiss;
  
     void Start()
     {
@@ -56,6 +59,7 @@ public class cubeInteraction : MonoBehaviour
         if (handIdx == targetIndex)
         {
             // m_renderer.material.color = Color.white;
+            cubeHit();
             Destroy(gameObject);
         }
     }
@@ -93,6 +97,7 @@ public class cubeInteraction : MonoBehaviour
         Vector3 updateVector = new Vector3(0f, 0f, -Time.deltaTime * cubeSpeed);
         transform.position += updateVector;
         if (Math.Abs(transform.localPosition.z) > destroyAt) {
+            cubeMiss();
             Destroy(gameObject);
         }
     }

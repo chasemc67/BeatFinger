@@ -1,7 +1,8 @@
 # Teeny tiny tabletop BeatSaber
 
-Currently works with Oculus Quest
+Small tabletop beatsaber game, prototyped using Oculus Quest hand tracking and Unity.
 
-Looking forward to add Hololens support once microsoft will finally sell me a Hololens 2
+Click here for the [updated Hololens version](https://github.com/chasemc67/BeatFinger-Hololens)
 
-[Video Demo](https://github.com/chasemc67/BeatFinger/blob/master/Demo%20Video.mp4)
+
+![ezgif com-video-to-gif](https://user-images.githubusercontent.com/6922982/85813660-abf0bb00-b718-11ea-8258-59424a462639.gif)
